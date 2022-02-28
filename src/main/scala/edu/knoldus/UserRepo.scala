@@ -1,3 +1,7 @@
+package edu.knoldus
+
+import edu.knoldus.model.User
+
 import scala.collection.mutable.ListBuffer
 
 trait UserRepo {
@@ -9,5 +13,3 @@ trait UserRepo {
 
   def getAllUsers: ListBuffer[User]
 }
-
-

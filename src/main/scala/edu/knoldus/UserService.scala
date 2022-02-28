@@ -1,8 +1,11 @@
-import UserProtocol._
+package edu.knoldus
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
+import edu.knoldus.model.User
+import edu.knoldus.model.UserProtocol._
 import spray.json.enrichAny
 
 import scala.concurrent.{ExecutionContext, Future}

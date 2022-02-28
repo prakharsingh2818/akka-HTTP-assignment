@@ -1,3 +1,7 @@
+package edu.knoldus
+
+import edu.knoldus.model.User
+
 import scala.collection.mutable.ListBuffer
 
 class UserRepoImpl extends UserRepo {

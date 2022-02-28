@@ -1,3 +1,5 @@
+package edu.knoldus.model
+
 import spray.json.{DefaultJsonProtocol, JsArray, JsValue, JsonFormat, RootJsonFormat, enrichAny}
 
 import scala.collection.mutable.ListBuffer
