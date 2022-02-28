@@ -1,5 +1,3 @@
-import spray.json.{DefaultJsonProtocol, JsArray, JsValue, JsonFormat, RootJsonFormat, enrichAny}
-
 import scala.collection.mutable.ListBuffer
 
 class UserRepoImpl extends UserRepo {
@@ -11,15 +9,9 @@ class UserRepoImpl extends UserRepo {
     users = users.filter(_.name != name)
   }
 
-  override def getUser(userName: String): User = users.filter(_.name == userName)(0)
+  override def getUser(userName: String): User = users.filter(_.name == userName).head
 
-  override def getAllUsers(): ListBuffer[User] = users
-
-  implicit def listBufferFormat[T: JsonFormat] = new RootJsonFormat[ListBuffer[T]] {
-    override def write(obj: ListBuffer[T]): JsValue = JsArray(obj.map(_.toJson).toVector)
-
-    override def read(json: JsValue): ListBuffer[T] = ???
-  }
+  override def getAllUsers: ListBuffer[User] = users
 }
 
 

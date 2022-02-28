@@ -3,16 +3,13 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
-import akka.stream.ActorMaterializer
 import spray.json.enrichAny
 
-import java.util.UUID
 import scala.concurrent.{ExecutionContext, Future}
 import scala.io.StdIn
 
 object UserService extends App {
   implicit val userSystem: ActorSystem = ActorSystem("userSystem")
-  //implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContext = userSystem.dispatcher
 
   val userRepo: UserRepo = new UserRepoImpl()
@@ -28,11 +25,10 @@ object UserService extends App {
           complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toJson(listBufferFormat).prettyPrint))
         }
       } ~
-      path("getUser") {
+      path("getUser" / Segment) { name =>
         get {
-          parameter("name") { name =>
-            complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUser(name).toJson.prettyPrint))
-          }
+          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUser(name).toJson.prettyPrint))
+
         }
       } ~
       path("addUser") {

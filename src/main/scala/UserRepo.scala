@@ -1,10 +1,13 @@
 import scala.collection.mutable.ListBuffer
 
 trait UserRepo {
-  def addUser(user: User)
-  def deleteUser(userName: String)
+  def addUser(user: User): Unit
+
+  def deleteUser(userName: String): Unit
+
   def getUser(userName: String): User
-  def getAllUsers(): ListBuffer[User]
+
+  def getAllUsers: ListBuffer[User]
 }
 
 
