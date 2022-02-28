@@ -36,8 +36,8 @@ object UserService extends App {
       } ~
       path("addUser") {
         post {
-          parameter("name") { name =>
-            val newUser = User(name)
+          parameter("name", "age".as[Int]) { (name, age) =>
+            val newUser = User(name, age)
             userRepo.addUser(newUser)
             complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<p>Added User with name: $name.</p>"))
           }
