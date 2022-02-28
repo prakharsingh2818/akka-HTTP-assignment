@@ -5,7 +5,7 @@ import spray.json.{DefaultJsonProtocol, JsArray, JsValue, JsonFormat, RootJsonFo
 import java.util.UUID
 import scala.collection.mutable.ListBuffer
 
-case class User(id: String = UUID.randomUUID().toString,name: String, age: Int)
+case class User(id: String = UUID.randomUUID().toString, name: String, age: Int)
 
 object UserProtocol extends DefaultJsonProtocol {
   implicit def listBufferFormat[T: JsonFormat]: RootJsonFormat[ListBuffer[T]] = new RootJsonFormat[ListBuffer[T]] {

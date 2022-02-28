@@ -25,17 +25,32 @@ object UserService extends App {
     } ~
       path("getAllUsers") {
         get {
-          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toJson.prettyPrint))
+          val users = userRepo.getAllUsers
+          if (users.isEmpty)
+            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<p>No user Found</p>"))
+          else
+            complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toJson.prettyPrint))
         }
       } ~
       path("getUserByName" / Segment) { userName =>
         get {
-          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUserByName(userName).toJson.prettyPrint))
+          val user = userRepo.getUserByName(userName)
+          val result = user match {
+            case Some(value) => value.toJson.prettyPrint
+            case None => "<p>No user by that Name</p>"
+          }
+          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, result))
+
         }
       } ~
       path("getUser" / Segment) { userId =>
         get {
-          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUser(userId).toJson.prettyPrint))
+          val user = userRepo.getUser(userId)
+          val result = user match {
+            case Some(value) => value.toJson.prettyPrint
+            case None => "<p>No user by that ID</p>"
+          }
+          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, result))
 
         }
       } ~
@@ -51,8 +66,12 @@ object UserService extends App {
       path("deleteUser") {
         delete {
           parameter("name") { name =>
-            userRepo.deleteUser(name)
-            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<p>Deleted User with name: $name.</p>"))
+            val deletedUser = userRepo.deleteUser(name)
+            val result = deletedUser match {
+              case Some(value) => s"<p>Deleted User with name: ${value.name}</p>"
+              case None => s"</p>No user by that name found<p>"
+            }
+            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, result))
           }
         }
       }

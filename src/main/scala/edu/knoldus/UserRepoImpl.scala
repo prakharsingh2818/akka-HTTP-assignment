@@ -9,13 +9,17 @@ class UserRepoImpl extends UserRepo {
 
   override def addUser(user: User): Unit = users.append(user)
 
-  override def deleteUser(name: String): Unit = {
+  override def deleteUser(name: String): Option[User] = {
+    val deletedUser = getUserByName(name)
     users = users.filter(_.name != name)
+    deletedUser
   }
 
-  override def getUserByName(userName: String): User = users.filter(_.name == userName).head
 
-  override def getUser(userId: String): User = users.filter(_.id == userId).head
+  override def getUserByName(userName: String): Option[User] = users.find(_.name == userName)
+
+  override def getUser(userId: String): Option[User] = users.find(_.id == userId)
+
 
   override def getAllUsers: ListBuffer[User] = users
 }
