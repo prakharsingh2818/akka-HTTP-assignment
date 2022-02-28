@@ -13,7 +13,9 @@ class UserRepoImpl extends UserRepo {
     users = users.filter(_.name != name)
   }
 
-  override def getUser(userName: String): User = users.filter(_.name == userName).head
+  override def getUserByName(userName: String): User = users.filter(_.name == userName).head
+
+  override def getUser(userId: String): User = users.filter(_.id == userId).head
 
   override def getAllUsers: ListBuffer[User] = users
 }

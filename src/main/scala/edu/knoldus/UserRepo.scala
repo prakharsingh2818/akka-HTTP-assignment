@@ -9,7 +9,9 @@ trait UserRepo {
 
   def deleteUser(userName: String): Unit
 
-  def getUser(userName: String): User
+  def getUserByName(userName: String): User
+
+  def getUser(userId: String): User
 
   def getAllUsers: ListBuffer[User]
 }

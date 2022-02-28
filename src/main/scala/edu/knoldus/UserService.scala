@@ -25,12 +25,17 @@ object UserService extends App {
     } ~
       path("getAllUsers") {
         get {
-          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toJson(listBufferFormat).prettyPrint))
+          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toJson.prettyPrint))
         }
       } ~
-      path("getUser" / Segment) { name =>
+      path("getUserByName" / Segment) { userName =>
         get {
-          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUser(name).toJson.prettyPrint))
+          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUserByName(userName).toJson.prettyPrint))
+        }
+      } ~
+      path("getUser" / Segment) { userId =>
+        get {
+          complete(HttpEntity(ContentTypes.`application/json`, userRepo.getUser(userId).toJson.prettyPrint))
 
         }
       } ~
