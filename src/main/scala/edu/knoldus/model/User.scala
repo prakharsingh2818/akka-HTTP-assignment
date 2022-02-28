@@ -2,9 +2,10 @@ package edu.knoldus.model
 
 import spray.json.{DefaultJsonProtocol, JsArray, JsValue, JsonFormat, RootJsonFormat, enrichAny}
 
+import java.util.UUID
 import scala.collection.mutable.ListBuffer
 
-case class User(name: String, age: Int)
+case class User(id: String = UUID.randomUUID().toString,name: String, age: Int)
 
 object UserProtocol extends DefaultJsonProtocol {
   implicit def listBufferFormat[T: JsonFormat]: RootJsonFormat[ListBuffer[T]] = new RootJsonFormat[ListBuffer[T]] {
@@ -16,7 +17,7 @@ object UserProtocol extends DefaultJsonProtocol {
     }
   }
 
-  implicit val userFormat: RootJsonFormat[User] = jsonFormat2(User)
+  implicit val userFormat: RootJsonFormat[User] = jsonFormat3(User)
 }
 
 
