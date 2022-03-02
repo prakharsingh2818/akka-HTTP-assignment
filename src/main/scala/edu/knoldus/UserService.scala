@@ -8,6 +8,7 @@ import edu.knoldus.model.User
 import edu.knoldus.model.UserProtocol._
 import spray.json.enrichAny
 
+import java.util.UUID
 import scala.concurrent.{ExecutionContext, Future}
 import scala.io.StdIn
 
@@ -28,7 +29,7 @@ object UserService extends App {
           val users = userRepo.getAllUsers
           if (users.isEmpty)
             complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<p>No user Found</p>"))
-          else
+          else //complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toList.toJson.prettyPrint))
             complete(HttpEntity(ContentTypes.`application/json`, userRepo.getAllUsers.toJson.prettyPrint))
         }
       } ~
@@ -43,7 +44,7 @@ object UserService extends App {
 
         }
       } ~
-      path("getUser" / Segment) { userId =>
+      path("getUser" / JavaUUID) { userId =>
         get {
           val user = userRepo.getUser(userId)
           val result = user match {

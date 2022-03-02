@@ -2,6 +2,7 @@ package edu.knoldus
 
 import edu.knoldus.model.User
 
+import java.util.UUID
 import scala.collection.mutable.ListBuffer
 
 trait UserRepo {
@@ -12,7 +13,7 @@ trait UserRepo {
 
   def getUserByName(userName: String): Option[User]
 
-  def getUser(userId: String): Option[User]
+  def getUser(userId: UUID): Option[User]
 
   def getAllUsers: ListBuffer[User]
 }

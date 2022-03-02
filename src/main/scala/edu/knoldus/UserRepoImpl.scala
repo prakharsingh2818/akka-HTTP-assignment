@@ -2,6 +2,7 @@ package edu.knoldus
 
 import edu.knoldus.model.User
 
+import java.util.UUID
 import scala.collection.mutable.ListBuffer
 
 class UserRepoImpl extends UserRepo {
@@ -18,7 +19,7 @@ class UserRepoImpl extends UserRepo {
 
   override def getUserByName(userName: String): Option[User] = users.find(_.name == userName)
 
-  override def getUser(userId: String): Option[User] = users.find(_.id == userId)
+  override def getUser(userId: UUID): Option[User] = users.find(_.id == userId)
 
 
   override def getAllUsers: ListBuffer[User] = users
